@@ -1,0 +1,45 @@
+﻿@model WEBUI.Models.MultipleFilesModel
+
+@{
+    ViewData["Title"] = "Multi File Upload";
+
+}
+
+<form asp-action="MultiUpload" asp-controller="Home" method="post" enctype="multipart/form-data">
+    @if (Model.IsResponse)
+    {
+        if (Model.IsSuccess)
+        {
+            <div class="alert alert-success">
+                @Model.Message
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-danger">
+                @Model.Message
+            </div>
+        }
+    }
+
+    <div class="row mt-2">
+        <div class="col-12">
+            <label class="col-form-label">Select Multiple Files</label>
+            <input asp-for="Files" class="form-control" multiple />
+            <span asp-validation-for="Files" class="text-danger"></span>
+             <small class="form-text text-muted">
+            Acceptable types : "txt", "doc", "docx", "pdf", "xls", "xlsx" ,"jpg","png","jpeg"
+        </small>
+        </div>
+    </div>
+
+
+    <div class="row mt-2">
+        <div class="col-12">
+            <button type="submit" class="btn btn-success">Upload Files</button>
+        </div>
+    </div>
+</form>
+
+
+@await Component.InvokeAsync("IndexFiles")
